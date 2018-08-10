@@ -8,15 +8,17 @@ function digits($n)
 {
     $count = 0;
     $i = 0;
+    $str = '';
     while ($count <= $n) {
         if ($count <= $n) {
             if ($i % strlen($i) === 0) {
-                echo "$i, ";
+                $str .= "$i, ";
                 $count++;
             }
             $i++;
         } else break;
     }
+    return trim($str, ", ");
 }
 
-digits(15);
+echo digits(15);
