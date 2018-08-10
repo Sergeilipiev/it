@@ -1,9 +1,8 @@
 <?php
 $post = $_POST;
 if (!empty($post)) {
-    if (strpos(strtolower($post['link']), 'http://') == false) {
-        $post['link'] = "http://" . $post['link'];
-    }
+    $post['link'] = trim($post['link'], 'http://');
+    $postlink = "http://" . $post['link'];
     $fp = fopen('file.csv', 'a+');
     if ($post['link2']) {
         if (!checkSameLink('file.csv', $post['link2'])) {
@@ -23,7 +22,7 @@ if (!empty($post)) {
             if (!checkSameLink('file.csv', $shortLink)) $flag = true;
         }
     }
-    $list = [$shortLink, $post['link']];
+    $list = [$shortLink, $postlink];
     fputcsv($fp, $list);
     fclose($fp);
     echo "<a href=http://" . $_SERVER['SERVER_NAME'] . '/' . $shortLink . ">" . $_SERVER['SERVER_NAME'] . '/' . $shortLink . "</a>";
